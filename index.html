@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>DynTra</title>
+    <style>
+        ::selection {
+      color: white;         /* Text color */
+      background: #E91E63;     /* Background color */
+    }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Assistant,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #fff;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo img {
+            height: 45px; /* Adjust as needed */
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            margin-left: -100px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 5px 10px;
+        }
+        .nav-links a:hover {
+            color: #E91E63;
+        }
+        .search-bar {
+        position: relative;
+        width: 100%;
+        max-width: 500px; /* Limit the width */
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 30px 10px 12px; /* Add space for the icon */
+            border: 2px solid #ccc;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #E91E63; /* Change border color on focus */
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 10px; /* Position it inside the input field */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 1.2rem;
+            pointer-events: none; /* So the icon doesn't block typing */
+        }
+
+        .icons {
+            display: flex;
+            gap: 30px;
+        }
+        .icons a {
+            text-decoration: none;
+            font-size: 20px;
+            color: #333;
+        }
+        .icons a:hover {
+            color: #E91E63;
+        }
+    /* Hero section css*/
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80vh; /* Adjust as needed */
+        text-align: center;
+        background: linear-gradient(316deg, #310e68 0%, #5f0f40 74%); /* Gradient background */
+        color: white;
+        padding: 0 20px;
+    }
+
+    .hero-content {
+        max-width: 600px;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 12px 25px;
+        background: white;
+        color: #E91E63;
+        font-size: 1.2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .cta-button:hover {
+        background: #E91E63;
+        color: white;
+    }
+    /* End of body css   */
+    /*How it works*/
+    .how-it-works {
+        background: linear-gradient(135deg, #f0f8ff, #e6f7ff); /* Gradient blue background */
+        padding: 80px 20px;
+        display: flex;
+        justify-content: center;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .how-it-works-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 1100px;
+        gap: 60px;
+        flex-wrap: wrap; /* To make it responsive */
+        animation: slideUp 1s ease-out;
+    }
+
+    .how-it-works-image img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+    }
+
+    .how-it-works-image img:hover {
+        transform: scale(1.05); /* Slight zoom effect on hover */
+    }
+
+    .how-it-works-text {
+        max-width: 500px;
+        padding-left: 50px;
+    }
+
+    .how-it-works h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        background: linear-gradient(to right, #ff5a5f, #ff758c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .how-it-works ol {
+        list-style: none;
+        counter-reset: step-counter;
+        padding-left: 0;
+        display: grid;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .how-it-works ol li {
+        font-size: 1.1rem;
+        background: white;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        counter-increment: step-counter;
+        transition: all 0.3s ease;
+    }
+
+    .how-it-works ol li:hover {
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px); /* Slight lift effect on hover */
+    }
+
+    .how-it-works ol li::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: -50px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #ff5a5f;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+
+    .how-it-works ol li:hover::before {
+        background-color: #e91e63; /* Change color on hover */
+    }
+
+    /* Step icons */
+    .how-it-works ol li i {
+        margin-right: 15px;
+        font-size: 1.4rem;
+        color: #ff5a5f;
+    }
+
+    /* Add animations for the entire section */
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        0% {
+            transform: translateY(20px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+    /*Slider/ Featured ps*/
+    .featured-ps {
+        text-align: center;
+        padding: 40px 0;
+        background: #f8f8f8;
+    }
+
+    .category-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        list-style: none;
+        margin-bottom: 20px;
+    }
+
+    .category-tabs li {
+        cursor: pointer;
+        padding: 10px 20px;
+        background: #ddd;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .category-tabs .active {
+        background: #ff4081;
+        color: #fff;
+    }
+
+    .slider-container {
+        position: relative;
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+        display: flex;
+        justify-content: center;
+        min-width: 100%;
+    }
+
+    .slide img {
+        width: 190px;
+        height: 270px;
+        margin: 0 10px;
+        border-radius: 10px;
+    }
+
+    .nav-dots {
+        margin-top: 15px;
+    }
+
+    .dot {
+        height: 10px;
+        width: 10px;
+        margin: 5px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .dot.active {
+        background-color: #ff4081;
+    }
+/* Explore by category   */
+/* Section Styling */
+    .explore-category {
+        text-align: center;
+        margin: 50px 0;
+    }
+
+    /* Header Image */
+    .category-header {
+        width: 100%;
+        height: auto;
+        max-width: 1920px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* Grid Layout */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr); /* 6 images per row */
+        grid-template-rows: repeat(5, auto); /* 5 rows */
+        width: 100%;
+    }
+
+    /* Category Images */
+    .category-grid img {
+        width: 200px;
+        height: 270px;
+        object-fit: cover; /* Ensures images fit nicely */
+        display: block;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Hover Effect */
+    .category-grid a:hover img {
+        transform: scale(1.05); /* Slight zoom on hover */
+    }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <!-- Left: Logo -->
+        <div class="logo">
+            <a href="home.html">
+                <img src="logo.png" alt="Logo">
+            </a>
+        </div>
+
+        <!-- Center: Navigation -->
+        <nav class="nav-links">
+            <a href="home.html"> HOME </a>
+            <a href="#">MEN</a>
+            <a href="#">WOMEN</a>
+            <a href="#">KIDS</a>
+            <a href="#">GENZ</a>
+        </nav>
+
+        <!-- Right: Search, Profile & Cart -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search for Products, Brands and more...">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="icons">
+            <a href="profile.html" class="icon-link"><i class="fas fa-user"></i></a>
+            <a href="cart.html" class="icon-link"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </header>
+    <!-- The hero section (body) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>No More Guessing Your Size, <br> Find Your Perfect Fit.</h1>
+            <p>Try multiple sizes before buying, keep what fits, return the rest— hassle-free shopping!</p>
+            <a href="#" class="cta-button">Explore Now</a>
+        </div>
+    </section>
+    <!-- How it works -->
+    <section class="how-it-works">
+        <div class="how-it-works-container">
+            <!-- Left Side: Image -->
+            <div class="how-it-works-image">
+                <img src="confused.png" alt="Confused person selecting sizes">
+            </div>
+
+            <!-- Right Side: Steps -->
+            <div class="how-it-works-text">
+                <h2>How It Works</h2>
+                <ol>
+                    <li><i class="fas fa-search"></i><strong>Browse and Select Your Styles</strong> – Explore our collection and pick your favorites.</li>
+                    <li><i class="fas fa-tshirt"></i><strong>Choose Multiple Sizes</strong> – Select different sizes to find your perfect fit.</li>
+                    <li><i class="fas fa-box-open"></i><strong>Try Them On at Home</strong> – Get your order, try everything, and decide what works.</li>
+                    <li><i class="fas fa-undo"></i><strong>Return the Ones That Don’t Fit</strong> – Send back what doesn’t fit, hassle-free!</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <!-- Slider/ Featured products -->
+    <section class="featured-ps">
+        <!-- product Slider -->
+        <div class="slider-container">
+            <div class="slider">
+                <!-- Slide 1 -->
+                <div class="slide">
+                    <a href="#"><img src="p1.png" alt="p 1"></a>
+                    <a href="#"><img src="p2.png" alt="p 2"></a>
+                    <a href="#"><img src="p3.png" alt="p 3"></a>
+                    <a href="#"><img src="p4.png" alt="p 4"></a>
+                    <a href="#"><img src="p5.png" alt="p 5"></a>
+                    <a href="#"><img src="p6.png" alt="p 6"></a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <a href="#"><img src="p7.png" alt="p 7"></a>
+                    <a href="#"><img src="p8.png" alt="p 8"></a>
+                    <a href="#"><img src="p9.png" alt="p 9"></a>
+                    <a href="#"><img src="p10.png" alt="p 10"></a>
+                    <a href="#"><img src="p11.png" alt="p 11"></a>
+                    <a href="#"><img src="p12.png" alt="p 12"></a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <a href="#"><img src="p13.png" alt="p 13"></a>
+                    <a href="#"><img src="p14.png" alt="p 14"></a>
+                    <a href="#"><img src="p15.png" alt="p 15"></a>
+                    <a href="#"><img src="p16.png" alt="p 16"></a>
+                    <a href="#"><img src="p17.png" alt=" "></a>
+                    <a href="#"><img src="p18.png" alt=" "></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="nav-dots">
+            <span class="dot active" onclick="changeSlide(0)"></span>
+            <span class="dot" onclick="changeSlide(1)"></span>
+            <span class="dot" onclick="changeSlide(2)"></span>
+        </div>
+    </section>
+    <!-- Explore by category -->
+    <section class="explore-category">
+        <!-- Section Header as Image -->
+        <img src="explore.jpg" alt="Explore by Category" class="category-header">
+
+        <!-- Grid for Categories -->
+        <div class="category-grid">
+            <!-- 30 category images with links -->
+            <a href="category1.html"><img src="c1.jpg" alt="Category 1"></a>
+            <a href="category2.html"><img src="c2.jpg" alt="Category 2"></a>
+            <a href="category3.jpg"><img src="c3.jpg" alt="Category 3"></a>
+            <a href="category4.jpg"><img src="c4.jpg" alt="Category 4"></a>
+            <a href="category5.jpg"><img src="c5.jpg" alt="Category 5"></a>
+            <a href="category6.jpg"><img src="c6.jpg" alt="Category 6"></a>
+            <!-- Repeat the above 6 images structure for a total of 30 images -->
+        </div>
+    </section>
+
+</body>
+<script type="text/javascript">
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".slide");
+        const dots = document.querySelectorAll(".dot");
+
+        function changeSlide(index) {
+            currentIndex = index;
+            document.querySelector(".slider").style.transform = `translateX(-${index * 100}%)`;
+            updateActiveDot();
+        }
+
+        function updateActiveDot() {
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        // Auto-slide every 4 seconds
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            changeSlide(currentIndex);
+        }, 5500);
+
+    </script>
+</html>
